@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="main-list">
+    <h2>Todo App</h2>
+    <mat-form-field class="example-form-field" #newTaskInput>
+      <input matInput type="text" placeholder="Add new task" [(ngModel)]="taskValue">
+      <button mat-button *ngIf="taskValue" matSuffix mat-icon-button aria-label="Clear" (click)="taskValue=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-fab color="accent" (click)="addNewTask()"><mat-icon>add</mat-icon></button>
+    <mat-selection-list #taskList>
+      <mat-list-option *ngFor="let task of tasks">
+        {{task}}
+      </mat-list-option>
+    </mat-selection-list>
+    <p>
+      Tasks done: {{taskList.selectedOptions.selected.length}} of {{taskList.options.length}}
+    </p>
+  </div>
+</div>
