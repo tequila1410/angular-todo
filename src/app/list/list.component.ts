@@ -72,7 +72,10 @@ export class ListComponent implements OnInit {
     localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 
-  getCsv() {
+  /**
+   * Download report in csv format
+   */
+  getCsv(): void {
     const options = {
       fieldSeparator: ',',
       quoteStrings: '"',
