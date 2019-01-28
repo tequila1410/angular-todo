@@ -18,6 +18,8 @@ export class ListComponent implements OnInit {
 
   taskValue: any;
 
+  searchText: string;
+
   @ViewChild('newTaskInput') newTaskInput;
 
   constructor() {

@@ -10,10 +10,13 @@
     <button mat-fab color="accent" (click)="addNewTask()">
       <mat-icon>add</mat-icon>
     </button>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Search..." [(ngModel)]="searchText">
+    </mat-form-field>
     <mat-selection-list #taskList>
-      <div *ngFor="let task of tasks" class="list-row">
+      <div *ngFor="let task of tasks | filter : searchText" class="list-row">
         <mat-list-option (click)="toggleCheckTask(task.id)" [selected]="task.done">
-          {{task.name}}
+          <span [ngClass]="{'checked-task': task.done}">{{task.name}}</span>
         </mat-list-option>
         <button class="delete-btn" (click)="deleteTask(task.id)" mat-raised-button color="warn">
           <mat-icon>delete_outline</mat-icon>
