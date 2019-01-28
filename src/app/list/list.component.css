@@ -28,3 +28,7 @@ button:focus {
 .checked-task {
   text-decoration: line-through;
 }
+
+.download-csv-btn {
+  padding: 0 10px;
+}

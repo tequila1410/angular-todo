@@ -26,5 +26,8 @@
     <p>
       Tasks done: {{taskList.selectedOptions.selected.length}} of {{taskList.options.length}}
     </p>
+    <button class="download-csv-btn" (click)="getCsv()" mat-raised-button color="primary">
+      Get csv
+    </button>
   </div>
 </div>

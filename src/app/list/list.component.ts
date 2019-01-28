@@ -1,4 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
+import {ListService} from './list.service';
+import {Angular5Csv} from 'angular5-csv/dist/Angular5-csv';
+import {Task} from '../shared/task.model';
 
 @Component({
   selector: 'app-list',
@@ -11,10 +14,7 @@ export class ListComponent implements OnInit {
    * Array of tasks
    * @type {string[]}
    */
-  tasks = [
-    {id: 1, name: 'Sock', done: true},
-    {id: 2, name: 'Sleep', done: false}
-  ];
+  tasks: Task[] = [];
 
   /**
    * New task text value
@@ -28,7 +28,7 @@ export class ListComponent implements OnInit {
    */
   searchText: string;
 
-  constructor() {
+  constructor(private listService: ListService) {
     this.tasks = JSON.parse(localStorage.getItem('tasks'));
     if (!this.tasks) this.tasks = [];
   }
@@ -45,11 +45,7 @@ export class ListComponent implements OnInit {
       newId = this.tasks[this.tasks.length - 1].id + 1;
     }
 
-    this.tasks.push({
-      id: newId,
-      done: false,
-      name: this.taskValue
-    });
+    this.tasks.push(new Task(newId, this.taskValue, false));
     this.taskValue = '';
     localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
@@ -74,6 +70,22 @@ export class ListComponent implements OnInit {
   deleteTask(taskId: number) {
     this.tasks = this.tasks.filter(task => task.id !== taskId);
     localStorage.setItem('tasks', JSON.stringify(this.tasks));
+  }
+
+  getCsv() {
+    const options = {
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalseparator: '.',
+      showLabels: true,
+      showTitle: true,
+      title: 'TODO list',
+      useBom: true,
+      noDownload: false,
+      headers: ['ID', 'Task', 'Done'],
+      nullToEmptyString: true,
+    };
+    const s = new Angular5Csv(JSON.stringify(this.tasks), 'TODO list Report', options);
   }
 
 }
