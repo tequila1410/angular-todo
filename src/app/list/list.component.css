@@ -5,3 +5,18 @@
 button:focus {
   outline: none;
 }
+
+.list-row {
+  display: flex;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.example-form-field {
+  min-width: 250px;
+}
+
+.delete-btn {
+  margin: 5px;
+  min-width: 40px;
+  padding: 0;
+}
