@@ -16,11 +16,17 @@ export class ListComponent implements OnInit {
     {id: 2, name: 'Sleep', done: false}
   ];
 
-  taskValue: any;
+  /**
+   * New task text value
+   * @type string
+   */
+  taskValue: string;
 
+  /**
+   * Value for filter pipe
+   * @type {string}
+   */
   searchText: string;
-
-  @ViewChild('newTaskInput') newTaskInput;
 
   constructor() {
     this.tasks = JSON.parse(localStorage.getItem('tasks'));
@@ -66,8 +72,8 @@ export class ListComponent implements OnInit {
    * @param {number} taskId
    */
   deleteTask(taskId: number) {
-    // TODO realize task deleting
     this.tasks = this.tasks.filter(task => task.id !== taskId);
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 
 }
