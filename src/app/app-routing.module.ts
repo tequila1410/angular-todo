@@ -3,8 +3,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {ListComponent} from './list/list.component';
 
 const appRoutes: Routes = [
-  { path: 'todo-list', component: ListComponent },
-  { path: '', redirectTo: '/todo-list', pathMatch: 'full' }
+  { path: 'list', component: ListComponent },
+  { path: '', redirectTo: '/list', pathMatch: 'full' }
 ];
 
 @NgModule({

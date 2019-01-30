@@ -3,17 +3,13 @@
 }
 
 button:focus {
-  outline: none;
+  outline: 1px auto transparent;
 }
 
 .list-row {
   display: flex;
   border-bottom: 1px solid #ebebeb;
 }
-
-/*.list-row:nth-child(even) {*/
-  /*background: #ebebeb;*/
-/*}*/
 
 .example-form-field {
   min-width: 250px;
@@ -25,7 +21,7 @@ button:focus {
   padding: 0;
 }
 
-.checked-task {
+.completed {
   text-decoration: line-through;
 }
 

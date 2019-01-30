@@ -1,6 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {ListService} from './list.service';
+import {Component} from '@angular/core';
 import {Angular5Csv} from 'angular5-csv/dist/Angular5-csv';
+
+import {ListService} from './list.service';
 import {Task} from '../shared/task.model';
 
 @Component({
@@ -8,7 +9,7 @@ import {Task} from '../shared/task.model';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
 
   /**
    * Array of tasks
@@ -30,10 +31,7 @@ export class ListComponent implements OnInit {
 
   constructor(private listService: ListService) {
     this.tasks = JSON.parse(localStorage.getItem('tasks'));
-    if (!this.tasks) this.tasks = [];
-  }
-
-  ngOnInit() {
+    if (this.tasks === null) this.tasks = [];
   }
 
   /**
@@ -47,20 +45,18 @@ export class ListComponent implements OnInit {
 
     this.tasks.push(new Task(newId, this.taskValue, false));
     this.taskValue = '';
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+    this.listService.saveList(this.tasks);
   }
 
   /**
    * Toggle task status
    * @param {number} taskId
    */
-  toggleCheckTask(taskId: number): void {
-    this.tasks.map(task => {
-      if (task.id === taskId) {
-        task.done = !task.done;
-      }
-    });
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+  changeTaskStatus(taskId: number): void {
+    const currentTask = this.tasks.find(task => task.id === taskId);
+    currentTask.done = !currentTask.done;
+
+    this.listService.saveList(this.tasks);
   }
 
   /**
@@ -69,7 +65,7 @@ export class ListComponent implements OnInit {
    */
   deleteTask(taskId: number) {
     this.tasks = this.tasks.filter(task => task.id !== taskId);
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+    this.listService.saveList(this.tasks);
   }
 
   /**

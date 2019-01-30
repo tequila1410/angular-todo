@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 
-@Injectable({
-  providedIn: 'root'
-})
+import {Task} from '../shared/task.model';
+
+@Injectable()
 export class ListService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor() { }
+
+  /**
+   * Save array of list to local storage
+   */
+  public saveList(todoList: Task[]): void {
+    localStorage.setItem('tasks', JSON.stringify(todoList));
+  }
 }

@@ -1,32 +1,49 @@
 <div class="container">
   <div class="main-list">
     <h2>Todo App</h2>
+
     <mat-form-field class="example-form-field" #newTaskInput>
-      <input matInput type="text" placeholder="Add new task" [(ngModel)]="taskValue">
-      <button mat-button *ngIf="taskValue" matSuffix mat-icon-button aria-label="Clear" (click)="taskValue=''">
+      <input [(ngModel)]="taskValue" matInput type="text" placeholder="Add new task">
+      <button
+        *ngIf="taskValue"
+        (click)="taskValue=''"
+        mat-button matSuffix mat-icon-button aria-label="Clear">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
-    <button mat-fab color="accent" (click)="addNewTask()">
+
+    <button
+      (click)="addNewTask()"
+      mat-fab color="accent">
       <mat-icon>add</mat-icon>
     </button>
+
     <mat-form-field class="example-full-width">
-      <input matInput placeholder="Search..." [(ngModel)]="searchText">
+      <input [(ngModel)]="searchText" matInput placeholder="Search...">
     </mat-form-field>
+
     <mat-selection-list #taskList>
       <div *ngFor="let task of tasks | filter : searchText" class="list-row">
-        <mat-list-option (click)="toggleCheckTask(task.id)" [selected]="task.done">
-          <span [ngClass]="{'checked-task': task.done}">{{task.name}}</span>
+        <mat-list-option (click)="changeTaskStatus(task.id)" [selected]="task.done">
+          <span [class.completed]="task.done">{{task.name}}</span>
         </mat-list-option>
-        <button class="delete-btn" (click)="deleteTask(task.id)" mat-raised-button color="warn">
+        <button
+          (click)="deleteTask(task.id)"
+          class="delete-btn"
+          mat-raised-button color="warn">
           <mat-icon>delete_outline</mat-icon>
         </button>
       </div>
     </mat-selection-list>
+
     <p>
       Tasks done: {{taskList.selectedOptions.selected.length}} of {{taskList.options.length}}
     </p>
-    <button class="download-csv-btn" (click)="getCsv()" mat-raised-button color="primary">
+
+    <button
+      (click)="getCsv()"
+      class="download-csv-btn"
+      mat-raised-button color="primary">
       Get csv
     </button>
   </div>
